@@ -20,8 +20,8 @@ my $server = $loop->SSL_listen(
       ip       => '127.0.0.1',
    },
 
-   SSL_key_file  => 'key.pem',
-   SSL_cert_file => 'cert.pem',
+   SSL_key_file  => './host.key',
+   SSL_cert_file => './host.crt',
 
    on_stream => sub {
       my ( $stream ) = @_;

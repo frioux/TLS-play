@@ -15,8 +15,8 @@ my $server = IO::Socket::SSL->new(
 
     # which certificate to offer
     # with SNI support there can be different certificates per hostname
-    SSL_cert_file => './cert.pem',
-    SSL_key_file => './key.pem',
+    SSL_cert_file => './host.crt',
+    SSL_key_file => './host.key',
 ) or die "failed to listen: $!";
 
 # accept client
