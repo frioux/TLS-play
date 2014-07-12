@@ -22,3 +22,7 @@ my $server = IO::Socket::SSL->new(
 # accept client
 my $client = $server->accept or die
     "failed to accept or ssl handshake: $!,$SSL_ERROR";
+
+while (my $line = <$client>) {
+   print $client $line
+}
