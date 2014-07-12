@@ -7,6 +7,7 @@ use experimental 'signatures';
 
 use IO::Async::Loop;
 use IO::Async::SSL;
+use IO::Async::SSLStream;
 
 $IO::Socket::SSL::DEBUG = 3;
 
