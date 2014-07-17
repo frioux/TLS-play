@@ -36,6 +36,11 @@ my $server = $loop->SSL_listen(
    on_ssl_error     => sub { die "Cannot negotiate SSL - $_[-1]\n"; },
    on_resolve_error => sub { die "Cannot resolve - $_[1]\n"; },
    on_listen_error  => sub { die "Cannot listen - $_[1]\n"; },
+
+   on_listen => sub ($s) {
+      warn "listening on: " . $s->sockhost . ':' . $s->sockport . "\n";
+   },
+
 );
 
 $loop->run;
