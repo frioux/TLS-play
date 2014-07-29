@@ -14,7 +14,7 @@ $IO::Socket::SSL::DEBUG = 3;
 my $loop = IO::Async::Loop->new;
 
 my $server = $loop->SSL_listen(
-   host     => '127.0.0.1',
+   host     => '0.0.0.0',
    socktype => 'stream',
    service  => 9932,
 
