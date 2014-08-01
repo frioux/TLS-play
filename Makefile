@@ -1,3 +1,6 @@
+host.pfx: host.crt
+	openssl pkcs12 -export -in host.crt -inkey host.key -out host.pfx -password pass:
+
 host.crt: host.csr rootCA.key rootCA.crt host.csr
 	openssl x509 -req -in host.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out host.crt -days 365
 
