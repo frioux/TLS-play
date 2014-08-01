@@ -1,3 +1,6 @@
+host.crt: host.csr rootCA.key rootCA.crt host.csr
+	openssl x509 -req -in host.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out host.crt -days 365
+
 rootCA.key:
 	openssl genrsa -out rootCA.key 2048
 
@@ -9,9 +12,6 @@ host.key:
 
 host.csr: host.key
 	openssl req -new -key host.key -out host.csr  -subj '/C=US/ST=Texas/L=Dallas/CN=localhost'
-
-host.crt: host.csr rootCA.key rootCA.crt host.csr
-	openssl x509 -req -in host.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out host.crt -days 365
 
 openssl-server: cert.pem
 	openssl s_server -accept 9932 -cert cert.pem -WWW
