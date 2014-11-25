@@ -20,11 +20,15 @@ my $server = $loop->SSL_listen(
 
    SSL_key_file  => './host.key',
    SSL_cert_file => './host.crt',
+   SSL_verify_mode => IO::Socket::SSL::SSL_VERIFY_PEER | IO::Socket::SSL::SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
+   SSL_verify_callback => sub ($, $, $, $, $x509, @) {
+      (lc Net::SSLeay::X509_get_fingerprint($x509, 'sha256') =~ s/://gr) eq 'cd4723f0b6415e4784518ebf8c89541c99088ac9431ada9f03ac16fe587c47bf' ? 1 : 0
+   },
 
    on_stream => sub ($stream) {
       $stream->configure(
          on_read => sub ($self, $buffref, $eof) {
-            $stream->write($$buffref);
+            $stream->write($stream->read_handle->get_fingerprint . ': ' . $$buffref);
             $$buffref = '';
             0
          },
